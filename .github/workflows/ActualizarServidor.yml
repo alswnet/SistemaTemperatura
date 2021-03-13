@@ -13,10 +13,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Salvando el Pollo
+        env:
+        POLLO_SECRETO: ${{ secrets.POLLO_SECRETO }}
+        run: echo "$env:POLLO_SECRETO" >> Pollo.txt
       - name: Run a one-line script
         run: pm2 stop 1
-      - name: instalando paquetes nodejs
-        run: npm install
+      # - name: instalando paquetes nodejs
+        # run: npm install
       - name: Run a multi-line script
         run: |
           echo "hola mundo extra" >> hola.txt
