@@ -1,5 +1,5 @@
 
-name: ActualizarServidor
+name: CI
 
 on:
   push:
