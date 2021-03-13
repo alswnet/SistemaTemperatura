@@ -1,0 +1,15 @@
+{
+  "name": "servidorambiental",
+  "version": "1.0.0",
+  "description": "Sistema de monitoreo serial ",
+  "main": "ambiente.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "chepecarlos",
+  "license": "ISC",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.50.0",
+    "serialport": "^9.0.2"
+  }
+}
