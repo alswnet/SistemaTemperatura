@@ -17,7 +17,7 @@ jobs:
         env:
           POLLO_SECRETO: ${{ secrets.POLLO_SECRETO }}
         run: |
-          echo "$env:POLLO_SECRETO" >> Pollo.txt
+          echo $POLLO_SECRETO >> Pollo.txt
       - name: Run a one-line script
         run: pm2 stop 1
       # - name: instalando paquetes nodejs
