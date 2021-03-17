@@ -20,12 +20,13 @@ jobs:
           echo $POLLO_SECRETO >> Pollo.txt
       - name: Parar NodeJs
         run: pm2 stop 1
-      # - name: instalando paquetes nodejs
-        # run: npm install
+
       - name: Compilar codigo Arduino
         run: arduino-cli compile -b arduino:avr:uno Arduino_Temperatura/
       - name: Subir codigo Arduino
         run: arduino-cli compile -p /dev/ttyACM0 -b arduino:avr:uno Arduino_Temperatura/
+      - name: instalando paquetes nodejs
+        run: npm install -g
       - name: Reiniciando NodeJs
         run: |
           echo "hola mundo extra" >> hola.txt
