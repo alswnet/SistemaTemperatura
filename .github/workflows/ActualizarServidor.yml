@@ -17,7 +17,7 @@ jobs:
         env:
           POLLO_SECRETO: ${{ secrets.POLLO_SECRETO }}
         run: |
-          echo $POLLO_SECRETO >> Pollo.txt
+          echo $POLLO_SECRETO >> Token.js
       - name: Parar NodeJs
         run: pm2 stop 1
 
