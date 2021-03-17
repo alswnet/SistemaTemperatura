@@ -26,7 +26,7 @@ jobs:
       - name: Subir codigo Arduino
         run: arduino-cli compile -p /dev/ttyACM0 -b arduino:avr:uno Arduino_Temperatura/
       - name: instalando paquetes nodejs
-        run: npm install -g
+        run: npm install -s
       - name: Reiniciando NodeJs
         run: |
           echo "hola mundo extra" >> hola.txt
