@@ -19,8 +19,7 @@ jobs:
         run: |
           echo $POLLO_SECRETO >> Token.js
       - name: Parar NodeJs
-        run: pm2 stop 1
-
+        run: pm2 stop ambiente
       - name: Compilar codigo Arduino
         run: arduino-cli compile -b arduino:avr:uno Arduino_Temperatura/
       - name: Subir codigo Arduino
@@ -28,6 +27,4 @@ jobs:
       - name: instalando paquetes nodejs
         run: npm install -s
       - name: Reiniciando NodeJs
-        run: |
-          echo "hola mundo extra" >> hola.txt
-          pm2 start 1
+        run: pm2 start ambiente
