@@ -23,7 +23,7 @@ jobs:
       - name: Compilar codigo Arduino
         run: arduino-cli compile -b arduino:avr:uno Arduino_Temperatura/
       - name: Subir codigo Arduino
-        run: arduino-cli compile -p /dev/ttyACM0 -b arduino:avr:uno Arduino_Temperatura/
+        run: arduino-cli upload -p /dev/ttyACM0 -b arduino:avr:uno Arduino_Temperatura/
       - name: instalando paquetes nodejs
         run: npm install -s
       - name: Reiniciando NodeJs
