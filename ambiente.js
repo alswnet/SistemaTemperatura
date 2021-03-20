@@ -17,7 +17,6 @@ const MiParse = new Readline();
 MiPuerto.pipe(MiParse);
 
 var Cliente = 123;
-var EsCafe = false;
 
 bot.on("message", msg => {
   const chatId = msg.chat.id;
@@ -36,10 +35,6 @@ bot.on("message", msg => {
     console.log("Pidiendo la Temperatura Aparente");
     bot.sendMessage(chatId, "Pidiendo la Temperatura Aparente");
     MiPuerto.write("a");
-  } else if (Mensaje == "Cafe" || Mensaje == 'Minuta') {
-    EsCafe = true;
-    bot.sendMessage(chatId, "Investiganco mejor opcion");
-    MiPuerto.write("a");
   } else {
     bot.sendMessage(chatId, "No entiendo el mensaje");
   }
@@ -50,16 +45,7 @@ MiParse.setEncoding("utf8");
 MiParse.on("data", function(data) {
   console.log("Lo que entro es " + data);
   var Mensaje = data.split(";");
-  if (EsCafe) {
-    Temperatura = parseFloat(Mensaje[1]);
-    console.log("La temperatura es "+ Temperatura);
-    if(Temperatura > 30){
-      bot.sendMessage(Cliente, "El Bot recomienda Minuta");
-    } else{
-      bot.sendMessage(Cliente, "El Bot recomienda Cafe");
-    }
-    EsCafe = false;
-  } else if (Mensaje[0] == "T") {
+  if (Mensaje[0] == "T") {
     bot.sendMessage(Cliente, "La temperatura es " + Mensaje[1] + "°C");
   } else if (Mensaje[0] == "H") {
     bot.sendMessage(Cliente, "La Humedad es " + Mensaje[1] + "%");
