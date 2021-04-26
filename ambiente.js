@@ -22,26 +22,26 @@ var EsCafe = false;
 bot.on("message", msg => {
   const chatId = msg.chat.id;
   Cliente = chatId;
-  var Mensaje = msg.text;
+  var Mensaje = msg.text.toLowerCase();
   console.log("El ID del char: " + chatId + " Usuario: " + msg.chat.first_name + " con  el mensaje: " + Mensaje);
-  if (Mensaje == "Temperatura" || Mensaje == "T" || Mensaje == "t") {
+  if (Mensaje == "temperatura"|| Mensaje == "t") {
     console.log("Pidiendo la Temperatura");
     bot.sendMessage(chatId, "Pidiendo la temperatura");
     MiPuerto.write("t");
-  } else if (Mensaje == "Humedad" || Mensaje == "H" || Mensaje == "h") {
+  } else if (Mensaje == "humedad" || Mensaje == "h") {
     console.log("Pidiendo la Humedad");
     bot.sendMessage(chatId, "Pidiendo la Humedad");
     MiPuerto.write("h");
-  } else if (Mensaje == "Aparente" || Mensaje == "A" || Mensaje == "a") {
+  } else if (Mensaje == "aparente" ||Mensaje == "a") {
     console.log("Pidiendo la Temperatura Aparente");
     bot.sendMessage(chatId, "Pidiendo la Temperatura Aparente");
     MiPuerto.write("a");
-  } else if (Mensaje == "Cafe" || Mensaje == 'Minuta') {
+  } else if (Mensaje == "cafe" || Mensaje == 'minuta') {
     EsCafe = true;
     bot.sendMessage(chatId, "Investiganco mejor opcion");
     MiPuerto.write("a");
   } else {
-    bot.sendMessage(chatId, "No entiendo el mensaje");
+    bot.sendMessage(chatId, "No entiendo el mensaje, mi amo");
   }
 });
 
