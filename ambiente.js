@@ -1,6 +1,9 @@
 /*jshint esversion: 6 */
 const TelegramBot = require("node-telegram-bot-api");
 
+var mqtt = require("mqtt");
+var client = mqtt.connect("mqtt://test.mosquitto.org");
+
 var Contastes = require("./Token");
 
 const bot = new TelegramBot(Contastes.token, {
@@ -24,7 +27,7 @@ bot.on("message", msg => {
   Cliente = chatId;
   var Mensaje = msg.text.toLowerCase();
   console.log("El ID del char: " + chatId + " Usuario: " + msg.chat.first_name + " con  el mensaje: " + Mensaje);
-  if (Mensaje == "temperatura"|| Mensaje == "t") {
+  if (Mensaje == "temperatura" || Mensaje == "t") {
     console.log("Pidiendo la Temperatura");
     bot.sendMessage(chatId, "Pidiendo la temperatura");
     MiPuerto.write("t");
@@ -32,7 +35,7 @@ bot.on("message", msg => {
     console.log("Pidiendo la Humedad");
     bot.sendMessage(chatId, "Pidiendo la Humedad");
     MiPuerto.write("h");
-  } else if (Mensaje == "aparente" ||Mensaje == "a") {
+  } else if (Mensaje == "aparente" || Mensaje == "a") {
     console.log("Pidiendo la Temperatura Aparente");
     bot.sendMessage(chatId, "Pidiendo la Temperatura Aparente");
     MiPuerto.write("a");
@@ -52,10 +55,10 @@ MiParse.on("data", function(data) {
   var Mensaje = data.split(";");
   if (EsCafe) {
     Temperatura = parseFloat(Mensaje[1]);
-    console.log("La temperatura es "+ Temperatura);
-    if(Temperatura > 30){
+    console.log("La temperatura es " + Temperatura);
+    if (Temperatura > 30) {
       bot.sendMessage(Cliente, "El Bot recomienda Minuta");
-    } else{
+    } else {
       bot.sendMessage(Cliente, "El Bot recomienda Cafe");
     }
     EsCafe = false;
@@ -67,3 +70,23 @@ MiParse.on("data", function(data) {
     bot.sendMessage(Cliente, "La Temperatura Aparente es " + Mensaje[1] + "°C");
   }
 });
+
+
+function EventoConectar() {
+  client.subscribe("ALSW/#", function(err) {
+    if (!err) {
+      console.log("Conectado a MQTT")
+    }
+  });
+}
+
+function EventoMensaje(topic, message) {
+  if (topic == "ALSW/temp") {
+    console.log("La Temperatura es " + message.toString());
+  }
+  console.log(topic + " - " + message.toString());
+  // client.end()
+}
+
+client.on("connect", EventoConectar);
+client.on("message", EventoMensaje);
