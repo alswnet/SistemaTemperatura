@@ -26,7 +26,7 @@ bot.on("message", msg => {
   const chatId = msg.chat.id;
   Cliente = chatId;
   var Mensaje = msg.text.toLowerCase();
-  console.log("El ID del char: " + chatId + " Usuario: " + msg.chat.first_name + " con  el mensaje: " + Mensaje);
+  console.log("El ID del char: " + chatId + " Usuario: " + msg.chat.first_name + " con el mensaje: " + Mensaje);
   if (Mensaje == "temperatura" || Mensaje == "t") {
     console.log("Pidiendo la Temperatura");
     bot.sendMessage(chatId, "Pidiendo la temperatura");
@@ -63,10 +63,13 @@ MiParse.on("data", function(data) {
     }
     EsCafe = false;
   } else if (Mensaje[0] == "T") {
+    client.publish("ALSW/Estudio/T", Mensaje[1]);
     bot.sendMessage(Cliente, "La temperatura es " + Mensaje[1] + "°C");
   } else if (Mensaje[0] == "H") {
+    client.publish("ALSW/Estudio/H", Mensaje[1]);
     bot.sendMessage(Cliente, "La Humedad es " + Mensaje[1] + "%");
   } else if (Mensaje[0] == "A") {
+    client.publish("ALSW/Estudio/A", Mensaje[1]);
     bot.sendMessage(Cliente, "La Temperatura Aparente es " + Mensaje[1] + "°C");
   }
 });
