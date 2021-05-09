@@ -7,15 +7,18 @@
 #define Humedad 1
 #define Aparente 2
 
+int Led = 13;
 DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
   dht.begin();
   Serial.begin(9600);
+  pinMode(Led, OUTPUT);
 }
 
 void loop() {
   if (Serial.available()) {
+    digitalWrite(Led, 1);
     char Letra = Serial.read();
     switch (Letra) {
       case 't':
@@ -34,6 +37,7 @@ void loop() {
         Serial.println(CalculoAmbiente(Aparente));
         break;
     }
+    digitalWrite(Led, 0);
   }
 }
 
