@@ -53,8 +53,10 @@ MiParse.setEncoding("utf8");
 MiParse.on("data", function(data) {
   console.log("Lo que entro es " + data);
   var Mensaje = data.split(";");
+  var Opcion = Mensaje[0].toLowerCase();
+  var Valor = Mensaje[1];
   if (EsCafe) {
-    Temperatura = parseFloat(Mensaje[1]);
+    Temperatura = parseFloat(Valor);
     console.log("La temperatura es " + Temperatura);
     if (Temperatura > 30) {
       bot.sendMessage(Cliente, "El Bot recomienda Minuta");
@@ -62,15 +64,15 @@ MiParse.on("data", function(data) {
       bot.sendMessage(Cliente, "El Bot recomienda Cafe");
     }
     EsCafe = false;
-  } else if (Mensaje[0] == "T") {
-    client.publish("ALSW/Estudio/T", Mensaje[1]);
-    bot.sendMessage(Cliente, "La temperatura es " + Mensaje[1] + "°C");
-  } else if (Mensaje[0] == "H") {
-    client.publish("ALSW/Estudio/H", Mensaje[1]);
-    bot.sendMessage(Cliente, "La Humedad es " + Mensaje[1] + "%");
-  } else if (Mensaje[0] == "A") {
-    client.publish("ALSW/Estudio/A", Mensaje[1]);
-    bot.sendMessage(Cliente, "La Temperatura Aparente es " + Mensaje[1] + "°C");
+  } else if (Opcion == "t") {
+    EnviarMQTT("ALSW/Estudio/T", Valor);
+    bot.sendMessage(Cliente, "La temperatura es " + Valor + "°C");
+  } else if (Opcion == "h") {
+    EnviarMQTT("ALSW/Estudio/H", Valor);
+    bot.sendMessage(Cliente, "La Humedad es " + Valor + "%");
+  } else if (Opcion == "a") {
+    EnviarMQTT("ALSW/Estudio/A", Valor);
+    bot.sendMessage(Cliente, "La Temperatura Aparente es " + Valor + "°C");
   }
 });
 
@@ -81,6 +83,14 @@ function EventoConectar() {
       console.log("Conectado a MQTT")
     }
   });
+}
+
+function EnviarMQTT(topic, mensaje) {
+  if (client.connected) {
+    client.publish(topic, mensaje);
+  } else {
+    console.log("Error, no se puedo mandar mensaje " + topic + " " + mensaje)
+  }
 }
 
 function EventoMensaje(topic, message) {
