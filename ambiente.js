@@ -44,6 +44,10 @@ bot.on("message", msg => {
     bot.sendMessage(chatId, "Investiganco mejor opcion");
     MiPuerto.write("a");
   } else {
+  } else if (Mensaje == "Lito") {
+    bot.sendMessage(chatId, "Vea este video :) https://www.youtube.com/watch?v=dgS-D7xK_NA&t=2s");
+
+  } else {
     bot.sendMessage(chatId, "No entiendo el mensaje, mi amo");
   }
 });
