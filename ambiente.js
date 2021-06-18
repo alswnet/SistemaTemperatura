@@ -43,9 +43,8 @@ bot.on("message", msg => {
     EsCafe = true;
     bot.sendMessage(chatId, "Investiganco mejor opcion");
     MiPuerto.write("a");
-  } else if (Mensaje == "Lito") {
+  } else if (Mensaje == "lito") {
     bot.sendMessage(chatId, "Vea este video :) https://www.youtube.com/watch?v=dgS-D7xK_NA&t=2s");
-
   } else {
     bot.sendMessage(chatId, "No entiendo el mensaje, mi amo");
   }
