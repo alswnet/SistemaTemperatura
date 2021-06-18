@@ -8,6 +8,10 @@
 #define Aparente 2
 
 int Led = 13;
+float TiempoAnterior = 0;
+float TiempoActivo = 300;
+float Mensaje = false;
+
 DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
@@ -18,6 +22,8 @@ void setup() {
 
 void loop() {
   if (Serial.available()) {
+    Mensaje =  true;
+    TiempoAnterior = millis();
     digitalWrite(Led, 1);
     char Letra = Serial.read();
     switch (Letra) {
@@ -37,8 +43,8 @@ void loop() {
         Serial.println(CalculoAmbiente(Aparente));
         break;
     }
-    digitalWrite(Led, 0);
   }
+  ActualizarLed();
 }
 
 float CalculoAmbiente(int Opcion) {
@@ -58,5 +64,15 @@ float CalculoAmbiente(int Opcion) {
     default:
       return -100;
       break;
+  }
+}
+
+void ActualizarLed() {
+  if (Mensaje) {
+    float TiempoActual = millis();
+    if (TiempoActual - TiempoAnterior > TiempoActivo) {
+      digitalWrite(Led, 0);
+      Mensaje = false;
+    }
   }
 }
