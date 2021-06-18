@@ -9,7 +9,7 @@
 
 int Led = 13;
 float TiempoAnterior = 0;
-float TiempoActivo = 300;
+float TiempoActivo = 3000;
 float Mensaje = false;
 
 DHT dht(DHTPIN, DHTTYPE);
